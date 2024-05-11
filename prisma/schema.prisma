@@ -51,3 +51,44 @@ model User {
   accounts Account[]
   sessions Session[]
 }
+
+model Subreddit{
+  id String @id @default(cuid())
+  name String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  posts Post[]
+}
+
+model Post{
+  id String @id default(cuid())
+  title String
+  content Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  subreddit subreddit @relation(fields: [subredditId], references:[id])
+  subredditId String
+
+  author User @relation(fields:[authorId], references:[id])
+  authorId String
+
+  comments Comment[]
+}
+
+model Comment{
+  id String @id @default(cuid())
+  text String
+  createdAt DateTime @default(now())
+  author User
+  authorId String
+  post Post
+  postId String
+
+  replyToId String?
+  replyTo Comment? @relation("ReplyTo", fields:[replyToId], references:[id], onDelete: NoAction, onUpdate: NoAction)
+  replies Comment[] @relation("ReplyTo")
+
+  vote CommentVote[]
+  commentId String?
+}
+

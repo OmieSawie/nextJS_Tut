@@ -1,8 +1,9 @@
 import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-import SignIn from "@/components/ui/SignIn";
+import SignIn from "@/components/SignIn";
 import Link from "next/link";
 import { FC } from "react";
+import { ChevronLeft } from "lucide-react";
 
 const page: FC = ({}) => {
   return (
@@ -15,7 +16,10 @@ const page: FC = ({}) => {
             "self-start -mt-20"
           )}
         >
+
+          <ChevronLeft className="mr-2 h-4 w-4"/>
           Home
+
         </Link>
 		<SignIn/>
       </div>
